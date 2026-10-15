@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09251e">
+  <title>{% block title %}WILD WITHIN{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">W</span><span>WILD <b>WITHIN</b><small>GROW AT YOUR OWN PACE</small></span></a>
+    <div class="side-label">YOUR JOURNEY</div>
+    <a class="nav-link {% if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}"><span>◫</span> Overview</a>
+    <a class="nav-link {% if request.endpoint == 'lab' %}active{% endif %}" href="{{ url_for('lab') }}"><span>✳</span> Habit Lab <i>NEW</i></a>
+    <div class="sidebar-bottom">
+      <div class="forest-card"><div class="forest-orb">✦</div><strong>Small steps.<br>Wild growth.</strong><p>Every action is evidence of who you're becoming.</p></div>
+      <div class="timezone"><span class="pulse"></span> {{ timezone_name }} <small>Local time</small></div>
+    </div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div class="mobile-brand">🌿 WILD WITHIN</div><div class="breadcrumb">PERSONAL GROWTH <span>/</span> {% block breadcrumb %}OVERVIEW{% endblock %}</div><div class="top-actions"><span class="live-dot"></span><span>YOUR SPACE</span><div class="avatar">W</div></div></header>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}<div class="flash-stack">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+    <footer>WILD WITHIN <span>•</span> Real effort. Honest progress. <span class="footer-right">Your growth belongs to you.</span></footer>
+  </main>
+</div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body></html>
